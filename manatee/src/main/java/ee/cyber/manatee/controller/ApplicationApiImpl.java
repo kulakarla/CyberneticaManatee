@@ -29,6 +29,7 @@ public class ApplicationApiImpl implements ApplicationApi {
 
     private final ApplicationMapper applicationMapper;
     private final ApplicationService applicationService;
+    private final InterviewMapper interviewMapper;
 
     @Override
     public ResponseEntity<List<ApplicationDto>> getApplications() {
