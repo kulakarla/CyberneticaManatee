@@ -1,6 +1,7 @@
 package ee.cyber.manatee.model;
 
 
+import ee.cyber.manatee.statemachine.InterviewType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,10 +33,6 @@ public class Interview {
 
     @Enumerated(EnumType.STRING)
     private InterviewType interviewType;
-
-    @OneToOne
-    private Application application;
-
 
 
 }

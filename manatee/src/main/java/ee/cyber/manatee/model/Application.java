@@ -3,13 +3,7 @@ package ee.cyber.manatee.model;
 
 import java.time.OffsetDateTime;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -41,4 +35,12 @@ public class Application {
 
     @NotNull
     private OffsetDateTime updatedOn;
+
+    @OneToOne
+    private Interview interview;
+
+
+    public void setInterview(Interview interview) {
+        this.interview = interview;
+    }
 }

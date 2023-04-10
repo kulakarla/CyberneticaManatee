@@ -3,6 +3,8 @@ package ee.cyber.manatee.controller;
 
 import java.util.List;
 
+import ee.cyber.manatee.dto.InterviewDto;
+import ee.cyber.manatee.mapper.InterviewMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
@@ -52,4 +54,17 @@ public class ApplicationApiImpl implements ApplicationApi {
             throw new ResponseStatusException(NOT_FOUND, "Invalid application id", exception);
         }
     }
+
+    @Override
+    public ResponseEntity<InterviewDto> scheduleInterview(Integer applicationId, InterviewDto interviewDto){
+        try {
+            val draftInterview = interviewMapper.dtoToEntity(interviewDto);
+            applicationService.scheduleInterview(applicationId, draftInterview);
+            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        } catch (IllegalArgumentException exception){
+            throw new ResponseStatusException(NOT_FOUND, "Invalid application id", exception);
+        }
+    }
+
+
 }

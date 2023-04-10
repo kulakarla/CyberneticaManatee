@@ -8,4 +8,7 @@ public interface ApplicationStateMachine {
 
     StateMachine<ApplicationState, ApplicationEvent> rejectApplication(
             Integer applicationId);
+
+    StateMachine<ApplicationState, ApplicationEvent> scheduleApplication(Integer applicationId);
+
 }

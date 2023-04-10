@@ -1,4 +1,4 @@
-package ee.cyber.manatee.model;
+package ee.cyber.manatee.statemachine;
 
 public enum InterviewType {
 
