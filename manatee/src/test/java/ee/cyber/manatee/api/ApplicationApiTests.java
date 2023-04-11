@@ -3,6 +3,7 @@ package ee.cyber.manatee.api;
 
 import ee.cyber.manatee.dto.InterviewDto;
 import ee.cyber.manatee.dto.InterviewTypeDto;
+import ee.cyber.manatee.statemachine.ApplicationState;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,7 @@ import ee.cyber.manatee.dto.CandidateDto;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
@@ -79,7 +79,12 @@ public class ApplicationApiTests {
         assertEquals(InterviewTypeDto.INFORMAL, responseScheduleInterview.getBody().getInterviewType());
 
 
-        System.out.println(applicationApi.getApplicationWithId(applicationJustAdded).getBody());
+        val changedApplication = applicationApi.getApplicationWithId(applicationJustAdded);
+
+        assertNotNull(changedApplication.getBody().getInterview());
+        assertNotEquals("Interview", changedApplication.getBody().getApplicationState());
+        assertEquals("Interview", changedApplication.getBody().getInterview().getFirstName());
+        assertEquals("2022-04-15T12:30:30+03:00", changedApplication.getBody().getInterview().getInterviewTime().toString());
 
     }
 
