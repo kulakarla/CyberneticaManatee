@@ -5,17 +5,19 @@ import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import ee.cyber.manatee.dto.InterviewDto;
 import ee.cyber.manatee.model.Interview;
 import ee.cyber.manatee.repository.InterviewRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.stereotype.Service;
 
 import ee.cyber.manatee.model.Application;
 import ee.cyber.manatee.repository.ApplicationRepository;
 import ee.cyber.manatee.statemachine.ApplicationState;
 import ee.cyber.manatee.statemachine.ApplicationStateMachine;
+
+import javax.transaction.Transactional;
 
 
 @Slf4j
@@ -33,7 +35,6 @@ public class ApplicationService {
         return applicationRepository.findAll();
     }
 
-
     public Application insertApplication(Application application) {
         application.setId(null);
         application.setApplicationState(ApplicationState.NEW);
@@ -48,13 +49,16 @@ public class ApplicationService {
 
 
     public void scheduleInterview(Integer applicationId, Interview interview) {
-        Optional<Application> optionalApplication = applicationRepository.findById(applicationId);
-        if (optionalApplication.isPresent()) {
-            Application application = optionalApplication.get();
-            application.setInterview(interview);
-            applicationStateMachine.scheduleApplication(applicationId);
-        } else {
-            throw new IllegalArgumentException();
-        }
+
+        val application = applicationRepository
+                .findById(applicationId)
+                .orElseThrow(() -> {
+                    log.error("Couldn't find the application with given id {}", applicationId);
+                    throw new IllegalArgumentException("Invalid application id");
+                });
+
+        application.setInterview(interview);
+        applicationRepository.save(application);
+        applicationStateMachine.scheduleInterview(applicationId);
     }
 }

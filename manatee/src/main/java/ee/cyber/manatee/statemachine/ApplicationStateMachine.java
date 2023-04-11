@@ -9,6 +9,6 @@ public interface ApplicationStateMachine {
     StateMachine<ApplicationState, ApplicationEvent> rejectApplication(
             Integer applicationId);
 
-    StateMachine<ApplicationState, ApplicationEvent> scheduleApplication(Integer applicationId);
+    StateMachine<ApplicationState, ApplicationEvent> scheduleInterview(Integer applicationId);
 
 }

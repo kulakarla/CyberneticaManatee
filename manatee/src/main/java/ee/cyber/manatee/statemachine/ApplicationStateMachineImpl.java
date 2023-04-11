@@ -38,7 +38,8 @@ public class ApplicationStateMachineImpl implements ApplicationStateMachine {
     }
 
     @Override
-    public StateMachine<ApplicationState, ApplicationEvent> scheduleApplication(Integer applicationId) {
+    @Transactional
+    public StateMachine<ApplicationState, ApplicationEvent> scheduleInterview(Integer applicationId) {
         val stateMachine = build(applicationId);
         sendEvent(applicationId, stateMachine, ApplicationEvent.SCHEDULE);
 

@@ -83,12 +83,28 @@ paths:
             schema:
               $ref: '#/components/schemas/Interview'
       responses:
-        '201':
+        '202':
           description: Successfully scheduled an interview for the desired application and perform a state and event transition.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Interview'
+  /interviews:
+    get:
+      operationId: getInterviews
+      tags:
+        - Interview
+      summary: Queries all applications.
+      description: Selects all applications stored in database and returns them as an array.
+      responses:
+        '200':
+          description: Successful query returns an array of applications.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Interview'
 
 components:
   schemas:
@@ -106,6 +122,8 @@ components:
         updatedOn:
           type: string
           format: date-time
+        interview:
+          $ref: '#/components/schemas/Interview'
 
     Candidate:
       type: object

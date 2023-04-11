@@ -35,6 +35,7 @@ public class ApplicationApiImpl implements ApplicationApi {
     public ResponseEntity<List<ApplicationDto>> getApplications() {
         val applications = applicationService.getApplications();
         return ResponseEntity.ok(applicationMapper.entitiesToDtoList(applications));
+
     }
 
     @Override
@@ -61,11 +62,13 @@ public class ApplicationApiImpl implements ApplicationApi {
         try {
             val draftInterview = interviewMapper.dtoToEntity(interviewDto);
             applicationService.scheduleInterview(applicationId, draftInterview);
-            return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+            return ResponseEntity.status(HttpStatus.ACCEPTED)
+                    .body(interviewDto);
         } catch (IllegalArgumentException exception){
             throw new ResponseStatusException(NOT_FOUND, "Invalid application id", exception);
         }
     }
+
 
 
 }

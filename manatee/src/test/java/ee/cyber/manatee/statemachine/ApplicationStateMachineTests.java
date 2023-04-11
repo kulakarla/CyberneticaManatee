@@ -3,6 +3,9 @@ package ee.cyber.manatee.statemachine;
 
 import javax.transaction.Transactional;
 
+import ee.cyber.manatee.dto.InterviewDto;
+import ee.cyber.manatee.dto.InterviewTypeDto;
+import ee.cyber.manatee.model.Interview;
 import lombok.val;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +16,10 @@ import ee.cyber.manatee.model.Candidate;
 import ee.cyber.manatee.repository.ApplicationRepository;
 import ee.cyber.manatee.service.ApplicationService;
 
-import static ee.cyber.manatee.statemachine.ApplicationState.REJECTED;
-import static ee.cyber.manatee.statemachine.ApplicationState.NEW;
+import java.time.OffsetDateTime;
+import java.time.format.DateTimeFormatter;
+
+import static ee.cyber.manatee.statemachine.ApplicationState.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -51,6 +56,22 @@ public class ApplicationStateMachineTests {
         val rejectedApplication = optionalRejectedApplication.get();
         assertEquals(REJECTED, rejectedApplication.getApplicationState());
         assertNotEquals(initialUpdatedOn, rejectedApplication.getUpdatedOn());
+
+    }
+
+    @Test
+    @Transactional
+    public void applicationGetsInterviwed(){
+        val newCandidate = Candidate.builder().firstName("Mari").lastName("Maasikas").build();
+        val newApplication = Application.builder().candidate(newCandidate).build();
+
+        val applicationSaved = applicationService.insertApplication(newApplication);
+
+        val stateMachine = applicationStateMachine.scheduleInterview(applicationSaved.getId());
+
+        System.out.println(stateMachine.getState().getId());
+        assertEquals(INTERVIEW, stateMachine.getState().getId());
+
 
     }
 }
