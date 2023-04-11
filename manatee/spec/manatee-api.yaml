@@ -55,6 +55,22 @@ paths:
               schema:
                 $ref: '#/components/schemas/Application'
   /applications/{applicationId}:
+    get:
+      operationId: getApplicationWithId
+      tags:
+        - Application
+      summary: Returns an application with given Id
+      description: Finds the application with given ID and returns it in the response body
+      parameters:
+        - $ref: '#/components/parameters/ApplicationId'
+      responses:
+        '201':
+          description: Successfully submitted applications returns an instance with given id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+
     patch:
       operationId: rejectApplication
       tags:

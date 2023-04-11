@@ -72,10 +72,14 @@ public class ApplicationApiTests {
         val responseScheduleInterview = applicationApi.scheduleInterview(applicationJustAdded, draftInterview);
 
         assertEquals(HttpStatus.CREATED, responseScheduleInterview.getStatusCode());
-
         System.out.println(responseScheduleInterview.getBody());
+        assertEquals("Interview", responseScheduleInterview.getBody().getFirstName());
+        assertEquals("Guru", responseScheduleInterview.getBody().getLastName());
+        assertEquals("2022-04-15T10:30:30+01:00", responseScheduleInterview.getBody().getInterviewTime().toString());
+        assertEquals(InterviewTypeDto.INFORMAL, responseScheduleInterview.getBody().getInterviewType());
 
-        System.out.println(applicationApi.getApplications());
+
+        System.out.println(applicationApi.getApplicationWithId(applicationJustAdded).getBody());
 
     }
 

@@ -48,6 +48,18 @@ public class ApplicationApiImpl implements ApplicationApi {
     }
 
     @Override
+    public ResponseEntity<ApplicationDto> getApplicationWithId(Integer applicationId){
+        try{
+            val application = applicationService.getApplicationWithId(applicationId);
+
+            return ResponseEntity.status(CREATED)
+                    .body(applicationMapper.entityToDto(application));
+        } catch (IllegalArgumentException exception){
+            throw new ResponseStatusException(NOT_FOUND, "Invalid application id", exception);
+        }
+    }
+
+    @Override
     public ResponseEntity<Void> rejectApplication(Integer applicationId) {
         try {
             applicationService.rejectApplication(applicationId);

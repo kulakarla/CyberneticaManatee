@@ -61,4 +61,15 @@ public class ApplicationService {
         applicationRepository.save(application);
         applicationStateMachine.scheduleInterview(applicationId);
     }
+
+    public Application getApplicationWithId(Integer applicationId) {
+
+        return applicationRepository
+                .findById(applicationId)
+                .orElseThrow(() -> {
+                    log.error("Couldn't find the application with given id {}", applicationId);
+                    throw new IllegalArgumentException("Invalid application id");
+
+                });
+    }
 }
