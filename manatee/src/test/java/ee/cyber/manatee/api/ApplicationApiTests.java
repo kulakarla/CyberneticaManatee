@@ -51,60 +51,34 @@ public class ApplicationApiTests {
                      application.getCandidate().getLastName());
     }
 
-    @Test
-    public void submitApplicationAndScheduleInterview(){
-        val draftCandidate = CandidateDto
-                .builder().firstName("Mari").lastName("Maasikas").build();
 
-        val draftCandidate2 = CandidateDto.builder().firstName("Mart").lastName("Minemunni").build();
+    @Test
+    public void submitApplicationAndScheduleAnInterviewForIt(){
+        val draftCandidate = CandidateDto
+                .builder().firstName("Cyber").lastName("Netica").build();
 
         val draftApplication = ApplicationDto
                 .builder().candidate(draftCandidate).build();
 
-        val draftApplication2 = ApplicationDto
-                .builder().candidate(draftCandidate2).build();
+        val responseAddApplication = applicationApi.addApplication(draftApplication);
 
-
-
-        val response = applicationApi.addApplication(draftApplication);
-
-        val response2 = applicationApi.addApplication(draftApplication2);
-
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(HttpStatus.CREATED, responseAddApplication.getStatusCode());
 
         val draftInterview = InterviewDto
-                .builder().firstName("Teet").lastName("Margna").interviewTime(OffsetDateTime.parse("2017-12-03T10:30:30+01:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME))
+                .builder().firstName("Interview").lastName("Guru").interviewTime(OffsetDateTime.parse("2022-04-15T10:30:30+01:00", DateTimeFormatter.ISO_OFFSET_DATE_TIME))
                 .interviewType(InterviewTypeDto.INFORMAL).build();
 
-        System.out.println(draftInterview);
+        int applicationJustAdded = responseAddApplication.getBody().getId();
+        val responseScheduleInterview = applicationApi.scheduleInterview(applicationJustAdded, draftInterview);
 
-        int response1id = response.getBody().getId();
+        assertEquals(HttpStatus.CREATED, responseScheduleInterview.getStatusCode());
 
-        int response2id = response2.getBody().getId();
-
-        System.out.println("LISATUD ENTITY 1 ID: " + response1id);
-        System.out.println("LISATUD ENTITY 2 ID: " + response2id);
-
-        val response3 = applicationApi.scheduleInterview(response2id, draftInterview);
-
-        System.out.println(response3.getBody());
+        System.out.println(responseScheduleInterview.getBody());
 
         System.out.println(applicationApi.getApplications());
 
-        System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||");
-
-        System.out.println(interviewApi.getInterviews());
-
-        System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||");
-
-
-
-
-
-
-
-
     }
+
 
 
 }

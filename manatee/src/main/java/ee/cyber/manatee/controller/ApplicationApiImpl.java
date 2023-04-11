@@ -62,7 +62,7 @@ public class ApplicationApiImpl implements ApplicationApi {
         try {
             val draftInterview = interviewMapper.dtoToEntity(interviewDto);
             applicationService.scheduleInterview(applicationId, draftInterview);
-            return ResponseEntity.status(HttpStatus.ACCEPTED)
+            return ResponseEntity.status(HttpStatus.CREATED)
                     .body(interviewDto);
         } catch (IllegalArgumentException exception){
             throw new ResponseStatusException(NOT_FOUND, "Invalid application id", exception);

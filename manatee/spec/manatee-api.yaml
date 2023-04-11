@@ -83,8 +83,8 @@ paths:
             schema:
               $ref: '#/components/schemas/Interview'
       responses:
-        '202':
-          description: Successfully scheduled an interview for the desired application and perform a state and event transition.
+        '201':
+          description: Successfully scheduled an interview for the desired application and performed a state and event transition.
           content:
             application/json:
               schema:

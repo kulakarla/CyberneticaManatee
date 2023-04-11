@@ -61,17 +61,24 @@ public class ApplicationStateMachineTests {
 
     @Test
     @Transactional
-    public void applicationGetsInterviwed(){
-        val newCandidate = Candidate.builder().firstName("Mari").lastName("Maasikas").build();
+    public void applicationIsScheduledAnInterview(){
+        val newCandidate = Candidate.builder().firstName("Ats").lastName("Raal").build();
         val newApplication = Application.builder().candidate(newCandidate).build();
 
         val applicationSaved = applicationService.insertApplication(newApplication);
+        val initialUpdatedOn = applicationSaved.getUpdatedOn();
+
+        assertEquals(NEW, applicationSaved.getApplicationState());
 
         val stateMachine = applicationStateMachine.scheduleInterview(applicationSaved.getId());
-
-        System.out.println(stateMachine.getState().getId());
         assertEquals(INTERVIEW, stateMachine.getState().getId());
 
+        val optionalScheduledApplication = applicationRepository.findById(applicationSaved.getId());
+        assertFalse(optionalScheduledApplication.isEmpty());
+
+        val scheduledApplication = optionalScheduledApplication.get();
+        assertEquals(INTERVIEW, scheduledApplication.getApplicationState());
+        assertNotEquals(initialUpdatedOn, scheduledApplication.getUpdatedOn());
 
     }
 }
