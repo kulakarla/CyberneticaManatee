@@ -22,7 +22,7 @@ import ee.cyber.manatee.statemachine.ApplicationState;
 public class Application {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull

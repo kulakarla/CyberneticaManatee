@@ -19,7 +19,7 @@ import java.time.OffsetDateTime;
 public class Interview {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @NotNull
