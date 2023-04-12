@@ -46,3 +46,5 @@ process was fairly smooth. I encountered some problems with Entity dependencies,
 a database and its connections when they're just written as classes with annotated fields. The biggest bug I had 
 to fix was saving the interview properly tied to the application when scheduling an interview, but Cascade ALL does the trick.
 Altogether, I enjoyed this test exercise thoroughly.
+
+For testing reasons, I added extra functionality by creating an API endpoint to retrieve all interviews separately.
