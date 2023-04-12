@@ -18,8 +18,7 @@ import ee.cyber.manatee.dto.ApplicationDto;
 import ee.cyber.manatee.mapper.ApplicationMapper;
 import ee.cyber.manatee.service.ApplicationService;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 
 @Slf4j
@@ -52,7 +51,7 @@ public class ApplicationApiImpl implements ApplicationApi {
         try{
             val application = applicationService.getApplicationWithId(applicationId);
 
-            return ResponseEntity.status(CREATED)
+            return ResponseEntity.status(OK)
                     .body(applicationMapper.entityToDto(application));
         } catch (IllegalArgumentException exception){
             throw new ResponseStatusException(NOT_FOUND, "Invalid application id", exception);

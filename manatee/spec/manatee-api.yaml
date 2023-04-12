@@ -64,7 +64,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/ApplicationId'
       responses:
-        '201':
+        '200':
           description: Successfully submitted applications returns an instance with given id.
           content:
             application/json:
