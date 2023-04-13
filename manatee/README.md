@@ -28,7 +28,7 @@ gradlew bootRun # Starts the application on a local network.
 # Summary
 | Question                                 | Answer                                                                                                                                                                         |
 |------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Time  spent (h)                          | 10h                                                                                                                                                                            |
+| Time  spent (h)                          | 14h                                                                                                                                                                            |
 | Hardest task, (with reasoning)           | I would say Task 1 - I have yet use a .yaml file so getting familiar with it was the toughest part. Other than that, it was just a question of getting into development rhythm |
 | Uncompleted tasks, if any                | None                                                                                                                                                                           |
 | Additional dependencies (with reasoning) | No additional dependencies                                                                                                                                                     | 
