@@ -37,7 +37,6 @@ public class Application {
     private OffsetDateTime updatedOn;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "interview_id")
     private Interview interview;
 
     public void setInterview(Interview interview) {

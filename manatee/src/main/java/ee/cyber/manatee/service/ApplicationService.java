@@ -40,6 +40,7 @@ public class ApplicationService {
         application.setApplicationState(ApplicationState.NEW);
         application.setUpdatedOn(OffsetDateTime.now());
 
+
         return applicationRepository.save(application);
     }
 

@@ -88,8 +88,8 @@ paths:
       tags:
         - Application
         - Interview
-      summary: Adds interview to the application with given Id
-      description: Takes in the interview details, ties them with the given application and performs a state transition to interview and event transition to schedule
+      summary: Adds interview to the Interview database and ties it to the application with given Id
+      description: Takes in the interview details, ties them with the given application and performs a state transition to interview
       parameters:
         - $ref: '#/components/parameters/ApplicationId'
       requestBody:
@@ -100,7 +100,7 @@ paths:
               $ref: '#/components/schemas/Interview'
       responses:
         '201':
-          description: Successfully scheduled an interview for the desired application and performed a state and event transition.
+          description: Successfully scheduled an interview for the desired application and performed a state transition.
           content:
             application/json:
               schema:
@@ -174,7 +174,7 @@ components:
 
     Interview:
       type: object
-      required:
+      required: #firstName and lastName is the firstName and lastName of the interviewer.
         - firstName
         - lastName
         - interviewTime

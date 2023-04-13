@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
 
@@ -22,10 +23,11 @@ public class Interview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
+
+    @NotBlank //Interviewer's first name
     private String firstName;
 
-    @NotNull
+    @NotBlank //Interviewer's last name
     private String lastName;
 
     @NotNull
