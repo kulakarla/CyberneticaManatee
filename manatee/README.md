@@ -41,8 +41,10 @@ between 50-100 words.
 SUMMARY:
 Overall, the experience was good. I have developed Spring Boot applications and API-s before, so the overall
 structure I was familiar with. StateMachines and OpenAI were the newer tools. However,
-with a bit studying, I learned it wasn't that hard at all (in this context atleast) and once I got into a good rhythm, the developing
+with a bit studying, it started to come along beautifully (in this context atleast) and once I got into a good rhythm, the developing
 process was fairly smooth. I encountered some problems with Entity dependencies, since it is hard to visualize 
 a database and its connections when they're just written as classes with annotated fields. The biggest bug I had 
 to fix was saving the interview properly tied to the application when scheduling an interview, but Cascade ALL does the trick.
 Altogether, I enjoyed this test exercise thoroughly.
+
+For testing reasons, I added extra functionality by creating an API endpoint to retrieve all interviews separately.
